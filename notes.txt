@@ -1,0 +1,1 @@
+docker run -p 3000:3000 -e PORT=3000 -e AWS_ACCESS_KEY_ID=your-access-key-id -e AWS_SECRET_ACCESS_KEY=your-secret-access-key gym-project
