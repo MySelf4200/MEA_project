@@ -33,15 +33,18 @@ async function createAccount(req, res, next) {
       return;
     }
 
-    const { id, sort_code, account_number, balance } = value;
+    const { id, first_name, surname, date_of_birth, join_date, steps, moves} = value;
 
     const params = {
       TableName: "Accounts",
       Item: {
         id,
-        sort_code,
-        account_number,
-        balance,
+        first_name,
+        surname,
+        date_of_birth,
+        join_date,
+        steps,
+        moves,
       },
     };
 
@@ -85,7 +88,7 @@ async function updateAccountById(req, res, next) {
       return res.status(400).json({ error: error.details[0].message });
     }
 
-    const { balance, sort_code, account_number } = value;
+    const { first_name,surname,date_of_birth,join_date,steps,moves, } = value;
 
     // Get the movie from DynamoDB
     const getParams = {
@@ -108,16 +111,22 @@ async function updateAccountById(req, res, next) {
       TableName: "Accounts",
       Key: { id: accountId },
       UpdateExpression:
-        "set #balance = :balance, #sort_code = :sort_code, #account_number = :account_number",
+      "set #first_name =:first_name, #surname = :surname, #date_of_birth = :date_of_birth, #join_date = :join_date, #steps = :steps, #moves = :moves",
       ExpressionAttributeNames: {
-        "#balance": "balance",
-        "#sort_code": "sort_code",
-        "#account_number": "account_number",
+        "#first_name":"first_name",
+        "#surname":"surname",
+        "#date_of_birth":"date_of_birth",
+        "#join_date":"join_date",
+        "#steps":"steps",
+        "#moves":"moves",
       },
       ExpressionAttributeValues: {
-        ":balance": balance,
-        ":sort_code": sort_code,
-        ":account_number": account_number,
+        ":first_name": first_name,
+        ":surname": surname,
+        ":date_of_birth": date_of_birth,
+        ":join_date": join_date,
+        ":steps":steps,
+        ":moves":moves,
       },
       ReturnValues: "ALL_NEW",
     };
